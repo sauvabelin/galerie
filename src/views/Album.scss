@@ -1,0 +1,111 @@
+.album {
+
+    &.noscroll {
+        height:100vh;
+        overflow:hidden;
+    }
+
+    .thumbnail {
+        width:100%;
+        padding-top:100%;
+        position:relative;
+        border-radius:10px;
+        overflow:hidden;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        .logo {
+            position:absolute;
+            top:0;
+            height:100%;
+            min-width:100%;
+        }
+
+        .loader {
+            position:absolute;
+            top:0;
+            height:100%;
+            width:100%;
+            background: #0e1217;
+            display:flex;
+            align-items:center;
+
+            img {
+                width:100%;
+            }
+        }
+
+        .loader-enter {
+            opacity: 0;
+        }
+
+        .loader-enter-active {
+            opacity: 1;
+            transition: opacity .3s;
+        }
+
+        .loader-exit {
+            opacity: 1;
+        }
+
+        .loader-exit-active {
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+    }
+
+    .history {
+        border-top: 1px solid #eee;
+        list-style:none;
+        padding:0;
+
+        li {
+            padding:0.3rem 0;
+            font-weight: bold;
+
+            a {
+                color: #788289;
+            }
+        }
+    }
+
+    .swag-slider {
+
+        .slick-slide {
+
+            > div {
+                display: flex;
+            }
+        }
+
+        .slick-dots {
+
+            position: initial;
+
+            li {
+                width:auto;
+                height:auto;
+
+                span {
+
+                    display:block;
+                    width:20px;
+                    height:20px;
+
+                    &:hover {
+                        background: #b5c4ce;
+                        border-radius:5px;
+                    }
+                }
+
+                &.slick-active span {
+                    background: #788289;
+                    border-radius:5px;
+                    color:white;
+                }
+            }
+        }
+    }
+}

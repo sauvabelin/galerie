@@ -1,0 +1,49 @@
+.directory-viewer {
+    width:100%;
+    cursor: pointer;
+    outline: none;
+
+    .image {
+        width:100%;
+        padding-top:100%;
+        position:relative;
+        overflow:hidden;
+        border-radius:10px;
+        background: #cdd8e2;
+
+        img {
+            position:absolute;
+            width:100%;
+            height:100%;
+            top:0;
+            transition: opacity .3s;
+        }
+
+        .placeholder {
+            position:absolute;
+            width:100%;
+            height:100%;
+            top:0;
+            background: #eee;
+            color:#bbb;
+
+            svg {
+                font-size:1.5rem;
+            }
+        }
+    }
+
+    .metas {
+        font-weight: 700;
+        font-family: 'Lato', sans-serif;
+        color: #788289;
+    }
+
+    &:hover {
+        text-decoration: none;
+
+        .image img {
+            opacity: 0.8;
+        }
+    }
+}
