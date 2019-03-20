@@ -12,7 +12,7 @@ function formatName(name) {
 }
 
 export default ({ data }) => (
-    <Link className="directory-viewer mb-4" to={`/album${data.hashPath}`}>
+    <Link className="directory-viewer mb-4" to={`/galerie${data.hashPath}`}>
         <div className="image">
             {data.thumbnail && <img src={data.thumbnail.thumbnail} alt={data.thumbnail.filename} />}
             {!data.thumbnail

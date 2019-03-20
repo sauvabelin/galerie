@@ -47,7 +47,7 @@ class Login extends Component {
         const { history } = this.props;
         if (Api.hasData()) {
             Api.queryDirectory('').then(() => {
-                history.push('/album');
+                history.push('/galerie');
             });
         }
     }
@@ -73,7 +73,7 @@ class Login extends Component {
             Api.loginUser(username, password).then(({ data: { token } }) => {
                 Api.setToken(token);
                 Api.queryDirectory('').then(() => {
-                    history.push('/album');
+                    history.push('/galerie');
                 }).catch(() => {
                     this.setState(() => ({ error: 'Votre mot de passe a expiré, connectez-vous sur netbs.sauvabelin.ch pour le changer' }));
                 });
@@ -82,7 +82,7 @@ class Login extends Component {
             });
         } else {
             Api.loginParent(key).then(() => {
-                history.push('/album');
+                history.push('/galerie');
             }).catch(() => {
                 this.setState(() => ({ error: 'Clé incorrecte' }));
             });

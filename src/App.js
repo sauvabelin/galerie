@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 import Login from './views/Login';
@@ -10,8 +10,9 @@ class App extends Component {
         return (
             <div className="App">
                 <Router>
+                    <Route exact path="/" render={() => <Redirect to="/login" />} />
                     <Route path="/login" component={Login} />
-                    <Route path="/album/:path*" component={Album} />
+                    <Route path="/galerie/:path*" component={Album} />
                 </Router>
             </div>
         );

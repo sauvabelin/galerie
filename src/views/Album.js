@@ -73,7 +73,7 @@ export default class extends Component {
             currentHashPath += `${hashPathData[i]}/`;
             history.push((
                 <li key={currentHashPath}>
-                    <Link to={`/album${currentHashPath}`}>{pathData[i] === '' ? 'Accueil' : formatName(pathData[i])}</Link>
+                    <Link to={`/galerie${currentHashPath}`}>{pathData[i] === '' ? 'Accueil' : formatName(pathData[i])}</Link>
                 </li>
             ));
         }
