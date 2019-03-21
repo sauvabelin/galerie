@@ -46,6 +46,7 @@ export default class extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             lazyLoad: true,
+            afterChange: i => this.setState({ active: i }),
             nextArrow: <SampleArrow icon="chevron-right" />,
             prevArrow: <SampleArrow icon="chevron-left" />,
         };
@@ -75,9 +76,16 @@ export default class extends Component {
                     onEnter={() => this.slider.slickGoTo(active)}
                     unmountOnExit>
                     <div className="slideshow">
-                        <button className="close-btn" type="button" onClick={() => this.close()}>
-                            <FontAwesomeIcon icon="times" />
-                        </button>
+                        <div className="toolbar">
+                            {medias[active] && (
+                                <a rel="noopener noreferrer" target="_blank" href={medias[active].bignail}>
+                                    <FontAwesomeIcon icon="download" />
+                                </a>
+                            )}
+                            <button className="close-btn" type="button" onClick={() => this.close()}>
+                                <FontAwesomeIcon icon="times" />
+                            </button>
+                        </div>
 
                         <div className="slider">
                             <Slider

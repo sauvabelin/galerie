@@ -7,36 +7,14 @@ import './Login.scss';
 class Login extends Component {
     constructor(props) {
         super(props);
-
-        const pictures = [
-            { id: 0, size: 30 + Math.floor(Math.random() * 20) },
-            { id: 1, size: 25 + Math.floor(Math.random() * 10) },
-            { id: 2, size: 15 + Math.floor(Math.random() * 10) },
-            { id: 3, size: 30 + Math.floor(Math.random() * 20) },
-            { id: 4, size: 15 + Math.floor(Math.random() * 10) },
-            { id: 5, size: 25 + Math.floor(Math.random() * 10) },
-            { id: 6, size: 30 + Math.floor(Math.random() * 20) },
-            { id: 7, size: 25 + Math.floor(Math.random() * 10) },
-            { id: 8, size: 15 + Math.floor(Math.random() * 10) },
-            { id: 9, size: 30 + Math.floor(Math.random() * 20) },
-            { id: 10, size: 15 + Math.floor(Math.random() * 10) },
-            { id: 11, size: 25 + Math.floor(Math.random() * 10) },
-            { id: 12, size: 30 + Math.floor(Math.random() * 20) },
-            { id: 13, size: 25 + Math.floor(Math.random() * 10) },
-            { id: 14, size: 15 + Math.floor(Math.random() * 10) },
-        ].map(s => (
-            <div className={`holder-${s.id}`} key={s.id}>
-                <CirclePicture className={`picture-${s.id}`} src={`http://lorempixel.com/200/${200 + s.id}`} size={`${s.size}px`} />
-            </div>
-        ));
-
         this.state = {
             error: '',
             counter: 0,
             username: '',
             password: '',
             key: '',
-            pictures,
+            pictures: [],
+            loaded: false,
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -50,6 +28,31 @@ class Login extends Component {
                 history.push('/galerie');
             });
         }
+
+        Api.queryRootPictures().then(({ data }) => {
+            const pictures = [
+                { id: 0, size: 30 + Math.floor(Math.random() * 20) },
+                { id: 1, size: 25 + Math.floor(Math.random() * 10) },
+                { id: 2, size: 15 + Math.floor(Math.random() * 10) },
+                { id: 3, size: 30 + Math.floor(Math.random() * 20) },
+                { id: 4, size: 15 + Math.floor(Math.random() * 10) },
+                { id: 5, size: 25 + Math.floor(Math.random() * 10) },
+                { id: 6, size: 30 + Math.floor(Math.random() * 20) },
+                { id: 7, size: 25 + Math.floor(Math.random() * 10) },
+                { id: 8, size: 15 + Math.floor(Math.random() * 10) },
+                { id: 9, size: 30 + Math.floor(Math.random() * 20) },
+                { id: 10, size: 15 + Math.floor(Math.random() * 10) },
+                { id: 11, size: 25 + Math.floor(Math.random() * 10) },
+                { id: 12, size: 30 + Math.floor(Math.random() * 20) },
+                { id: 13, size: 25 + Math.floor(Math.random() * 10) },
+                { id: 14, size: 15 + Math.floor(Math.random() * 10) },
+            ].map(s => (
+                <div className={`holder-${s.id}`} key={s.id}>
+                    <CirclePicture className={`picture-${s.id}`} src={data[s.id % data.length].thumbnail} size={`${s.size}px`} />
+                </div>
+            ));
+            this.setState({ pictures, loaded: true });
+        });
     }
 
     handleClick() {
@@ -90,14 +93,21 @@ class Login extends Component {
     }
 
     render() {
-        const { counter, pictures, error } = this.state;
+        const {
+            counter,
+            pictures,
+            error,
+            loaded,
+        } = this.state;
 
         return (
             <div className="login-page d-flex align-items-center justify-content-center flex-column">
-                <div className="pictures d-flex align-items-center justify-content-center">
-                    { pictures }
-                    <CirclePicture className="logo" src={Logo} size="80px" style={{ padding: '0.8em' }} />
-                </div>
+                {loaded && (
+                    <div className="pictures d-flex align-items-center justify-content-center">
+                        { pictures }
+                        <CirclePicture className="logo" src={Logo} size="80px" style={{ padding: '0.8em' }} />
+                    </div>
+                )}
                 <div className="bottom">
                     <form onSubmit={this.handleSubmit} className="form d-flex flex-column">
                         <input name="username" type="text" className="mb-2" placeholder="Nom d'utilisateur" onChange={this.handleChange} />

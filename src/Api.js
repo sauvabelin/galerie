@@ -24,6 +24,10 @@ class Api {
         });
     }
 
+    queryRootPictures() {
+        return this.layer.get(`${parts.PARENT}/galerie/root-pictures`);
+    }
+
     loginUser(username, password) {
         this.setPart(parts.USER);
         return this.layer.post(`${this.part}/gettoken`, { username, password });

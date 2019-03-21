@@ -7,6 +7,7 @@ import {
     faTimes,
     faChevronLeft,
     faChevronRight,
+    faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 import App from './App';
@@ -16,5 +17,6 @@ library.add(faBoxOpen);
 library.add(faTimes);
 library.add(faChevronLeft);
 library.add(faChevronRight);
+library.add(faDownload);
 
 ReactDOM.render(<App />, document.getElementById('root'));

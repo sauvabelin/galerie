@@ -7,20 +7,28 @@
     background:rgba(0,0,0,0.8);
     z-index:100;
 
-    button {
+    button, a {
         border:none;
         background: transparent;
         color:white;
-        font-size:2.5rem;
         outline: none;
         padding:1rem;
-        position:relative;
-        z-index:110;
+    }
 
-        &.close-btn {
-            position:fixed;
-            right:0;
-        }
+    button {
+        font-size:2.5rem;
+    }
+
+    a {
+        font-size:1.8rem;
+        position:relative;
+        top:-3px;
+    }
+
+    .toolbar {
+        position:fixed;
+        right:0;
+        z-index: 110;
     }
 
     .slider {
