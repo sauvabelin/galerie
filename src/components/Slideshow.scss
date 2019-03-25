@@ -17,6 +17,11 @@
 
     button {
         font-size:2.5rem;
+
+        &.slider-arrow {
+            position:relative;
+            z-index: 111;
+        }
     }
 
     a {
