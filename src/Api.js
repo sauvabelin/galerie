@@ -24,6 +24,10 @@ class Api {
         });
     }
 
+    queryLatestChanges() {
+        return this.layer.get('public/netBS/galerie/latest-change');
+    }
+
     queryRootPictures() {
         return this.layer.get(`${parts.PARENT}/galerie/root-pictures`);
     }

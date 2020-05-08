@@ -32,6 +32,7 @@ export default class extends Component {
             children: [],
             medias: [],
             history: [],
+            changes: null,
         };
 
         this.choosePicture = this.choosePicture.bind(this);
@@ -39,6 +40,7 @@ export default class extends Component {
         this.buildChildren = this.buildChildren.bind(this);
         this.buildHistory = this.buildHistory.bind(this);
         this.buildMedias = this.buildMedias.bind(this);
+        this.loadLatestChanges = this.loadLatestChanges.bind(this);
     }
 
     componentDidMount() {
@@ -59,8 +61,34 @@ export default class extends Component {
         Api.queryDirectory(path).then(({ data }) => {
             this.setState({ loading: false, selected: null, ...data });
             this.buildHistory(data);
+            if (data.name === 'originals') this.loadLatestChanges();
         }).catch(() => {
             history.push('/login');
+        });
+    }
+
+    loadLatestChanges() {
+        Api.queryLatestChanges().then(({ data }) => {
+            const changes = data.map((it) => {
+                const path = it.path.split('/');
+                return (
+                    <div className="change">
+                        <Link to={`/galerie/${it.hash}`}>
+                            <div className="d-flex flex-column d-md-none change-mobile mb-3 p-2">
+                                <span className="name">{formatName(it.name)}</span>
+                                <span className="path">{path.slice(0, -1).map(i => formatName(i).trim()).join('/')}</span>
+                                <span className="date">Modifié le {it.date}</span>
+                            </div>
+                            <div className="d-none d-md-flex change-desktop mb-2 align-items-center">
+                                <span className="date pb-1 pt-1 pl-2 pr-2">{it.date}</span>
+                                <span className="name ml-2">{formatName(it.name)}</span>
+                                <span className="path ml-2 text-muted">{path.slice(0, -1).map(i => formatName(i).trim()).join('/')}</span>
+                            </div>
+                        </Link>
+                    </div>
+                );
+            });
+            this.setState({ changes });
         });
     }
 
@@ -117,6 +145,7 @@ export default class extends Component {
     render() {
         const {
             selected,
+            changes,
             name,
             thumbnail,
             description,
@@ -198,6 +227,12 @@ export default class extends Component {
                                 <Slider {...sliderSettings}>
                                     {this.buildMedias()}
                                 </Slider>
+                            </div>
+                        )}
+                        {name === 'originals' && (
+                            <div className="mt-4 mt-md-0">
+                                <h2 className="mb-3">Les 10 dernières modifications</h2>
+                                <div>{changes}</div>
                             </div>
                         )}
                     </div>
