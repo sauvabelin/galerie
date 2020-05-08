@@ -5,6 +5,16 @@
         overflow:hidden;
     }
 
+    .description {
+        background: #d6f4f6;
+        border-radius: 10px;
+
+        p {
+            margin: 0;
+            font-size:1.2rem;
+        }
+    }
+
     .thumbnail {
         width:100%;
         padding-top:100%;

@@ -29,7 +29,6 @@ export default ({ data }) => (
         </div>
         <div className="metas mt-2 mb-3">
             <p className="m-0">{formatName(data.name)}</p>
-            <p className="m-0 counter">{data.count} vue{data.count === 1 ? '' : 's'}</p>
         </div>
     </Link>
 );

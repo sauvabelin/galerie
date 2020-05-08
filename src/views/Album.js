@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import DOMPurify from 'dompurify';
 import { CSSTransition } from 'react-transition-group';
 
 import './Album.scss';
@@ -148,6 +149,8 @@ export default class extends Component {
             ],
         };
 
+        const cleanDescription = description ? DOMPurify.sanitize(description) : null;
+
         return (
             <div className={`container album pt-3 pt-lg-5 ${selected !== null ? 'noscroll' : ''}`}>
                 <Slideshow
@@ -170,12 +173,6 @@ export default class extends Component {
                                 </CSSTransition>
                             </div>
                         )}
-                        <h2 className="m-0 pt-2">{formatName(name || '')}</h2>
-                        {description && (
-                            <div>
-                                <p className="text-muted">{description}</p>
-                            </div>
-                        )}
                         {history.length > 0 && (
                             <ul className="history mt-lg-3 pt-lg-2">
                                 {history}
@@ -184,6 +181,12 @@ export default class extends Component {
                         )}
                     </div>
                     <div className="col-12 col-sm-9">
+                        <h1 className="m-0 mb-3 pt-2">{formatName(name || '')}</h1>
+                        {description && (
+                            <div className="description p-3 p-md-4 mb-3">
+                                <p dangerouslySetInnerHTML={{ __html: cleanDescription }} />
+                            </div>
+                        )}
                         {children.length > 0 && (
                             <div className="row mb-lg-5">
                                 <div className="col-12">{this.buildChildren()}</div>
